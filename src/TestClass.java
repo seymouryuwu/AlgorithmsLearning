@@ -1,13 +1,14 @@
 import heap.TrappingRainWater;
+import heap.TrappingRainWaterII;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class TestClass {
     public static void main(String[] args) {
-        TrappingRainWater t = new TrappingRainWater();
-        int[] height = {9,6,8,8,5,6,3};
-        System.out.println(t.trap(height));
+        TrappingRainWaterII t = new TrappingRainWaterII();
+        int[][] height = {{1,4,3,1,3,2},{3,2,1,3,2,4},{2,3,3,2,3,1}};
+        System.out.println(t.trapRainWater(height));
 
     }
 }
