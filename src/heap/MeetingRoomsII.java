@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class MeetingRoomsII {
-    // Approach 1: doesn't use heap,
+    // Approach 1: doesn't use heap, stupid solution
     // time complexity is O(N*max(M)),
     // N is the number of intervals, M is the max range of the intervals.
     public int minMeetingRooms(int[][] intervals) {
@@ -48,54 +48,25 @@ public class MeetingRoomsII {
             return 0;
         }
 
-        Queue<Integer> allocator = new PriorityQueue<Integer>((a, b) -> a - b);
-
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-
-        allocator.add(intervals[0][1]);
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] >= allocator.peek()) {
-                allocator.poll();
-            }
-
-            allocator.add(intervals[i][1]);
+        Queue<Integer> ends = new PriorityQueue<>();
+        for (int[] interval : intervals) {
+            ends.offer(interval[1]);
         }
 
-        return allocator.size();
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+        for (int[] interval : intervals) {
+            if (ends.peek() <= interval[0]) {
+                ends.poll();
+            }
+        }
+
+        return ends.size();
     }
 
-    // Approach 3: time complexity N*log(N)
-    public int minMeetingRooms3(int[][] intervals) {
-        if (intervals == null || intervals.length == 0) {
-            return 0;
-        }
+    // Approach 3: two pointers. time complexity N*log(N)
+    // see twoPointers.MeetingRoomsII
 
-        Integer[] start = new Integer[intervals.length];
-        Integer[] end = new Integer[intervals.length];
-
-        for (int i = 0; i < intervals.length; i++) {
-            start[i] = intervals[i][0];
-            end[i] = intervals[i][1];
-        }
-
-        Arrays.sort(start, (a, b) -> a - b);
-        Arrays.sort(end, (a, b) -> a - b);
-
-        int startPointer = 0;
-        int endPointer = 0;
-
-        int usedRooms = 0;
-
-        while (startPointer < intervals.length) {
-            if (start[startPointer] >= end[endPointer]) {
-                usedRooms--;
-                endPointer++;
-            }
-
-            usedRooms++;
-            startPointer++;
-        }
-
-        return usedRooms;
-    }
+    // Approach 4: line sweep
+    // see lineSweep.MeetingRoomsII
 }
