@@ -1,4 +1,4 @@
-package Trie;
+package trie;
 
 /*
 https://leetcode.com/problems/implement-trie-prefix-tree/

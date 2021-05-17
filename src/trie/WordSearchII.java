@@ -1,4 +1,4 @@
-package Trie;
+package trie;
 
 /*
 https://leetcode.com/problems/word-search-ii/
@@ -6,13 +6,58 @@ https://leetcode.com/problems/word-search-ii/
 import java.util.*;
 
 public class WordSearchII {
+    private static class Trie {
+        Map<Character, Trie> successors;
+        boolean isWord;
+        String word;
+
+        public Trie() {
+            successors = new HashMap<>();
+            isWord = false;
+            word = null;
+        }
+
+        public void insert(String word) {
+            char[] wordArray = word.toCharArray();
+
+            Trie curr = this;
+
+            for (char c : wordArray) {
+                if (!curr.successors.containsKey(c)) {
+                    curr.successors.put(c, new Trie());
+                }
+
+                curr = curr.successors.get(c);
+            }
+
+            curr.isWord = true;
+            curr.word = word;
+        }
+
+        public boolean find(String word) {
+            char[] wordArray = word.toCharArray();
+
+            Trie curr = this;
+
+            for (char c : wordArray) {
+                if (!curr.successors.containsKey(c)) {
+                    return false;
+                }
+
+                curr = curr.successors.get(c);
+            }
+
+            return curr.isWord;
+        }
+    }
+
     public List<String> findWords(char[][] board, String[] words) {
         List<String> results = new ArrayList<>();
         if (board == null || words == null || words.length == 0) {
             return results;
         }
 
-        TrieWSch trie = new TrieWSch();
+        Trie trie = new Trie();
         for (String word : words) {
             trie.insert(word);
         }
@@ -31,7 +76,7 @@ public class WordSearchII {
 
     // row and col is the cell that needs to be found.
     // trie is the node whose successors may contain that letter
-    private void dfs(char[][] board, int row, int col, TrieWSch trie, Set<String> results) {
+    private void dfs(char[][] board, int row, int col, Trie trie, Set<String> results) {
         if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
             return;
         }
@@ -62,47 +107,4 @@ public class WordSearchII {
     }
 }
 
-class TrieWSch {
-    Map<Character, TrieWSch> successors;
-    boolean isWord;
-    String word;
 
-    public TrieWSch() {
-        successors = new HashMap<>();
-        isWord = false;
-        word = null;
-    }
-
-    public void insert(String word) {
-        char[] wordArray = word.toCharArray();
-
-        TrieWSch curr = this;
-
-        for (char c : wordArray) {
-            if (!curr.successors.containsKey(c)) {
-                curr.successors.put(c, new TrieWSch());
-            }
-
-            curr = curr.successors.get(c);
-        }
-
-        curr.isWord = true;
-        curr.word = word;
-    }
-
-    public boolean find(String word) {
-        char[] wordArray = word.toCharArray();
-
-        TrieWSch curr = this;
-
-        for (char c : wordArray) {
-            if (!curr.successors.containsKey(c)) {
-                return false;
-            }
-
-            curr = curr.successors.get(c);
-        }
-
-        return curr.isWord;
-    }
-}
