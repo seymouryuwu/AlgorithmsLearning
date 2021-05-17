@@ -17,6 +17,16 @@ public class MeetingRoomsII {
     // see twoPointers.MeetingRoomsII
 
     // Approach 4: line sweep
+    private static class Point {
+        int time;
+        boolean isEnd;
+
+        public Point(int time, boolean isEnd) {
+            this.time = time;
+            this.isEnd = isEnd;
+        }
+    }
+
     public int minMeetingRooms(int[][] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
@@ -54,12 +64,3 @@ public class MeetingRoomsII {
     }
 }
 
-class Point {
-    int time;
-    boolean isEnd;
-
-    public Point(int time, boolean isEnd) {
-        this.time = time;
-        this.isEnd = isEnd;
-    }
-}
