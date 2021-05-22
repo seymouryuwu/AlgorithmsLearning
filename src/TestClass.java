@@ -10,11 +10,5 @@ public class TestClass {
         LargestRectangleInHistogram largestRectangleInHistogram = new LargestRectangleInHistogram();
         int[] height = {2, 1, 5, 6, 2, 3};
         System.out.println(largestRectangleInHistogram.largestRectangleArea(height));
-
-
     }
-
-
-
-
 }
