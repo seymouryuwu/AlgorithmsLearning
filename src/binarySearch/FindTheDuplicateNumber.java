@@ -16,7 +16,10 @@ public class FindTheDuplicateNumber {
             // if count > mid, the duplicate number must be in the range of [1, mid].
             if (count > mid) {
                 large = mid;
-            } else {
+            }
+            // if count <= mid, because nums is filled by the numbers ranged from [1, n],
+            // so the numbers greater than mid must have duplication.
+            else {
                 small = mid;
             }
         }
