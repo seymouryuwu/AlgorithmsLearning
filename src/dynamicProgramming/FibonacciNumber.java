@@ -29,4 +29,22 @@ public class FibonacciNumber {
 
         return dp[n];
     }
+
+    // using scrolling array (length is 2) to optimise space complexity
+    public int fib3(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        int old = 1;
+        int now = 0;
+        for (int i = 2; i <= n; i++) {
+            now = now + old;
+            int temp = old;
+            old = now;
+            now = temp;
+        }
+
+        return old;
+    }
 }
