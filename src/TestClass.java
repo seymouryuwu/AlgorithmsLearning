@@ -11,5 +11,6 @@ public class TestClass {
         LongestIncreasingPathInAMatrix l = new LongestIncreasingPathInAMatrix();
         int[][] matrix = {{9,9,4},{6,6,8},{2,1,1}};
         System.out.println(l.longestIncreasingPath(matrix));
+        System.out.println();
     }
 }
