@@ -1,4 +1,7 @@
 package dynamicProgramming;
+/*
+https://leetcode.com/problems/stone-game-ii/
+ */
 
 public class StoneGameII {
     public int stoneGameII(int[] piles) {
@@ -87,7 +90,7 @@ public class StoneGameII {
             sum += piles[i];
             suffixSum[i] = sum;
         }
-        
+
         // maxM[i] is when the player faces piles[i] ... piles[n - 1], the max M this state can have.
         // so it can be any number from 1 to maxM[i]. Note it is just M, not X.
         int[] maxM = findMaxM(n);
